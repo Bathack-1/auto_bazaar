@@ -17,6 +17,9 @@ def main():
             kjøpe("coal")
         elif valg == "selge":
             selge()
+        elif valg == "begge":
+            kjøpe("coal")
+            selge()
 
 if __name__ == '__main__':
     main()

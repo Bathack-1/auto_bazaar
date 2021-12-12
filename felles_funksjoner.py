@@ -77,7 +77,7 @@ def hente_inn(kjøp_eller_selge,vente_før_begynne):
     åpne_bazaar()
     trykk(3260, 715)
     bort()
-    if kjøp_eller_selge == "kjøp":
+    if kjøp_eller_selge == "kjøpe":
         x = 3038
         y = 626
     elif kjøp_eller_selge == "selge":
@@ -91,9 +91,6 @@ def hente_inn(kjøp_eller_selge,vente_før_begynne):
 
         if noe_der == True:
             trykk(x, y)
-
-        elif noe_der == False:
-            exit()
 
         if tilgjenglig("kjøpe") == False or tilgjenglig("selge") == False:
             noe_der = False
