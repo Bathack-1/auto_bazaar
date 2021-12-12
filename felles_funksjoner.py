@@ -55,11 +55,47 @@ def tilgjenglig(kjøpe_eller_selge):
         sjekke_y = 560
         farge = (146, 60, 49)
 
-    if kjøpe_eller_selge == "selge":
-        pass
+    elif kjøpe_eller_selge == "selge":
+        sjekke_x = 3200
+        sjekke_y = 560
+        farge = (145, 63, 48)
+
     skjermbilde = pyautogui.screenshot()
     if skjermbilde.getpixel((sjekke_x, sjekke_y)) == farge:
         svar = False
     else:
         svar = True
     return svar
+
+
+def hente_inn(kjøp_eller_selge,vente_før_begynne):
+    time.sleep(vente_før_begynne)
+    noe_der = True
+    x = 0
+    y = 0
+
+    åpne_bazaar()
+    trykk(3260, 715)
+    bort()
+    if kjøp_eller_selge == "kjøp":
+        x = 3038
+        y = 626
+    elif kjøp_eller_selge == "selge":
+        x = 3040
+        y = 570
+
+    while noe_der == True:
+        skjermbilde = pyautogui.screenshot()
+        if skjermbilde.getpixel((x, y)) == (139, 139, 139):
+            noe_der = False
+
+        if noe_der == True:
+            trykk(x, y)
+
+        elif noe_der == False:
+            exit()
+
+        if tilgjenglig("kjøpe") == False or tilgjenglig("selge") == False:
+            noe_der = False
+            keyboard.press_and_release("esc")
+            hente_inn(kjøp_eller_selge, vente_før_begynne)
