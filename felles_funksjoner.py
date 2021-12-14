@@ -1,4 +1,7 @@
 import time, keyboard, pyautogui
+global sjekke_x, sjekke_y
+
+
 
 def start():
     keyboard.wait("i")
@@ -6,7 +9,7 @@ def start():
 
 
 #flytte bort datamusa, og vente
-def bort(x=3480, y=400, vente_tid=0.2):
+def bort(x=4120, y=400, vente_tid=0.2):
     pyautogui.moveTo((x, y))
     time.sleep(vente_tid)
 
@@ -25,13 +28,13 @@ def åpne_bazaar():
     riktig_farge = False
     bazaar_åpnet = False
 
-    while bazaar_åpnet == False:
+    while not bazaar_åpnet:
 
         pyautogui.rightClick()
         skjermbilde = pyautogui.screenshot()
         time.sleep(0.5)
 
-        if skjermbilde.getpixel((3416, 491)) == (113, 133, 144):
+        if skjermbilde.getpixel((4056, 491)) == (113, 133, 144):
             riktig_farge = True
 
         if riktig_farge == False:
@@ -42,21 +45,21 @@ def åpne_bazaar():
             keyboard.release("space")
             time.sleep(0.2)
 
-        elif riktig_farge == True:
+        elif riktig_farge is True:
             bazaar_åpnet = True
 
 def tilgjenglig(kjøpe_eller_selge):
-    svar = True
+    global sjekke_x, sjekke_y
     sjekke_x = 0
     sjekke_y = 0
     farge = (0, 0, 0)
     if kjøpe_eller_selge == "kjøpe":
-        sjekke_x = 3095
+        sjekke_x = 3735
         sjekke_y = 560
         farge = (146, 60, 49)
 
     elif kjøpe_eller_selge == "selge":
-        sjekke_x = 3200
+        sjekke_x = 3840
         sjekke_y = 560
         farge = (145, 63, 48)
 
@@ -68,26 +71,29 @@ def tilgjenglig(kjøpe_eller_selge):
     return svar
 
 
-def hente_inn(kjøp_eller_selge,vente_før_begynne):
+def hente_inn(kjøp_eller_selge, vente_før_begynne):
+    global sjekke_x
+    global sjekke_y
+
     time.sleep(vente_før_begynne)
     noe_der = True
     x = 0
     y = 0
 
     åpne_bazaar()
-    trykk(3260, 715)
+    trykk(3900, 715)
     bort()
     if kjøp_eller_selge == "kjøpe":
-        x = 3038
+        x = 3678
         y = 626
     elif kjøp_eller_selge == "selge":
-        x = 3040
+        x = 3680
         y = 570
 
     while noe_der == True:
         skjermbilde = pyautogui.screenshot()
-        if skjermbilde.getpixel((x, y)) == (139, 139, 139):
-            noe_der = False
+        if skjermbilde.getpixel((x, y)) == (139, 139, 139) or skjermbilde.getpixel((x, y)) == (197, 197, 197):
+            break
 
         if noe_der == True:
             trykk(x, y)
