@@ -7,7 +7,7 @@ def start():
 
 
 #flytte bort datamusa, og vente
-def bort(x=4120, y=400, vente_tid=0.5):
+def bort(x=4120, y=400, vente_tid=0.2):
     pyautogui.moveTo((x, y))
     time.sleep(vente_tid)
 
@@ -18,7 +18,7 @@ def trykk(posisjon_x, posisjon_y=570):
     bort()
     skjermbilde = pyautogui.screenshot()
     pyautogui.click(posisjon_x, posisjon_y)
-    time.sleep(1)
+    time.sleep(0.2)
 
 
 def åpne_bazaar():

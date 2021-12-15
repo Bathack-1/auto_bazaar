@@ -19,8 +19,6 @@ def kjøp_og_bekreft(antall):
 def objekt_kjøp(gjenstand, antall):
 
     åpne_bazaar()
-    objekt_liste(gjenstand)
+    vente_tid = objekt_liste(gjenstand)    #kjører "objekt_liste", og lagrer det den returnerer i vente_tid
     kjøp_og_bekreft(antall)
-
-    vente_før_begynne = objekt_liste(gjenstand)
-    hente_inn("kjøpe", vente_før_begynne)
+    hente_inn("kjøpe", vente_tid)

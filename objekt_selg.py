@@ -10,4 +10,4 @@ def objekt_selg():
         trykk(4000)
         trykk(3790)
         trykk(3840)
-        hente_inn("selge", 30)
+    hente_inn("selge", 30)
