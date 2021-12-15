@@ -1,6 +1,4 @@
 import time, keyboard, pyautogui
-global sjekke_x, sjekke_y
-
 
 
 def start():
@@ -9,7 +7,7 @@ def start():
 
 
 #flytte bort datamusa, og vente
-def bort(x=4120, y=400, vente_tid=0.2):
+def bort(x=4120, y=400, vente_tid=0.5):
     pyautogui.moveTo((x, y))
     time.sleep(vente_tid)
 
@@ -20,6 +18,7 @@ def trykk(posisjon_x, posisjon_y=570):
     bort()
     skjermbilde = pyautogui.screenshot()
     pyautogui.click(posisjon_x, posisjon_y)
+    time.sleep(1)
 
 
 def åpne_bazaar():
@@ -31,10 +30,12 @@ def åpne_bazaar():
     while not bazaar_åpnet:
 
         pyautogui.rightClick()
+        time.sleep(1)
+        pyautogui.moveTo(4075, 480)
         skjermbilde = pyautogui.screenshot()
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
-        if skjermbilde.getpixel((4056, 491)) == (113, 133, 144):
+        if skjermbilde.getpixel((4058, 478)) == (184, 194, 200) :
             riktig_farge = True
 
         if riktig_farge == False:
@@ -48,8 +49,9 @@ def åpne_bazaar():
         elif riktig_farge is True:
             bazaar_åpnet = True
 
+    time.sleep(1)
+
 def tilgjenglig(kjøpe_eller_selge):
-    global sjekke_x, sjekke_y
     sjekke_x = 0
     sjekke_y = 0
     farge = (0, 0, 0)
@@ -72,8 +74,6 @@ def tilgjenglig(kjøpe_eller_selge):
 
 
 def hente_inn(kjøp_eller_selge, vente_før_begynne):
-    global sjekke_x
-    global sjekke_y
 
     time.sleep(vente_før_begynne)
     noe_der = True
@@ -100,5 +100,20 @@ def hente_inn(kjøp_eller_selge, vente_før_begynne):
 
         if tilgjenglig("kjøpe") == False or tilgjenglig("selge") == False:
             noe_der = False
-            keyboard.press_and_release("esc")
-            hente_inn(kjøp_eller_selge, vente_før_begynne)
+
+            if kjøp_eller_selge == "selge":
+                trykk(3840, 560)
+                keyboard.press_and_release("esc")
+                åpne_bazaar()
+                trykk(3900, 700)
+                skjermbilde = pyautogui.screenshot()
+                if skjermbilde.getpixel((3732, 950)) != (139, 139, 139):
+                    trykk(3732, 950)
+                    trykk(4000)
+                    trykk(3790)
+                    trykk(3840)
+                    hente_inn("selge", vente_før_begynne)
+            else:
+                trykk(3735, 560)
+                keyboard.press_and_release("esc")
+                hente_inn(kjøp_eller_selge, vente_før_begynne)

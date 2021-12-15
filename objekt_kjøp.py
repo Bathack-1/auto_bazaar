@@ -1,4 +1,5 @@
 from felles_funksjoner import *
+from objekt_liste import objekt_liste
 
 def kjøp_og_bekreft(antall):
     # trykke kjøp
@@ -18,11 +19,8 @@ def kjøp_og_bekreft(antall):
 def objekt_kjøp(gjenstand, antall):
 
     åpne_bazaar()
+    objekt_liste(gjenstand)
+    kjøp_og_bekreft(antall)
 
-    if gjenstand == "coal":
-        #objekt_farge = (45, 45, 45)
-
-        trykk(3790, 550)
-        trykk(3680)
-        kjøp_og_bekreft(antall)
-        hente_inn("kjøpe", 5)
+    vente_før_begynne = objekt_liste(gjenstand)
+    hente_inn("kjøpe", vente_før_begynne)

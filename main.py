@@ -15,26 +15,31 @@ def selge():
 def main():
     global jobb
 
-    valg = input("kjøpe eller selge?")
-    if valg == "kjøpe":
+    kjøpe_eller_selge = input("kjøpe eller selge? ")
+    if kjøpe_eller_selge == "kjøpe":
         def jobb(gjenstand):
             kjøpe(gjenstand)
-    elif valg == "selge":
+    elif kjøpe_eller_selge == "selge":
         def jobb():
             selge()
-    elif valg == "begge":
+    elif kjøpe_eller_selge == "begge":
         def jobb(gjenstand):
             kjøpe(gjenstand)
             selge()
 
-    valg = input("\n"+"antall ganger?")
+    if kjøpe_eller_selge == "kjøpe" or kjøpe_eller_selge == "begge":
+        kjøpes = input("\n"+"hva skal kjøpes? ")
+    else:
+        kjøpes = False
+
+    valg = input("\n"+"antall ganger? ")
 
     if valg == "for alltid":
         antall_rep = 0
         while not keyboard.is_pressed("å"):
             start()
             while True:
-                jobb("coal")
+                jobb(kjøpes)
                 antall_rep += 1
                 print(f"{antall_rep} \n")
     else:
@@ -42,7 +47,7 @@ def main():
         while not keyboard.is_pressed("å"):
             start()
             for x in range(int(valg)):
-                jobb("coal")
+                jobb(kjøpes)
                 antall_rep += 1
                 print(f"{antall_rep} \n")
 
